@@ -1,0 +1,20 @@
+{
+  "latest_candle": "2026-10-26",
+  "ok": true,
+  "provider": "Futu",
+  "published_at": "2026-10-27T15:18:50.308192+00:00",
+  "service": "pattern-signal-bot",
+  "universe": {
+    "symbols": [
+      "US.SPY",
+      "US.QQQ",
+      "US.ARKK",
+      "US.TSLA",
+      "US.MSFT"
+    ],
+    "timeframes": [
+      "day",
+      "week"
+    ]
+  }
+}
