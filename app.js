@@ -25,18 +25,21 @@ function demoSignals() {
 }
 async function load() {
   try {
-    if (!api) throw new Error("No API configured");
-    const [health, signals] = await Promise.all([fetch(`${api}/api/health`).then(r => r.json()), fetch(`${api}/api/signals`).then(r => r.json())]);
+    const base = api ? `${api}/api` : "data";
+    const [health, signals] = await Promise.all([
+      fetch(api ? `${base}/health` : `${base}/health.json`, {cache: "no-store"}).then(r => r.json()),
+      fetch(api ? `${base}/signals` : `${base}/signals.json`, {cache: "no-store"}).then(r => r.json())
+    ]);
     state.signals = signals;
     $("#connection-dot").className = "dot";
-    $("#connection-text").textContent = "Scanner connected";
-    $("#provider").textContent = "Futu";
+    $("#connection-text").textContent = api ? "Scanner connected" : "Published snapshot";
+    $("#provider").textContent = health.provider || "Futu";
     $("#health-value").textContent = health.ok ? "Healthy" : "Check";
     $("#health-detail").textContent = health.service || "scanner API";
     $("#last-scan").textContent = signals[0]?.scanned_at?.replace("T", " ").slice(0, 16) || "No active setup";
   } catch (_) {
     state.signals = location.hostname === "localhost" ? demoSignals() : [];
-    $("#connection-text").textContent = api ? "Scanner unavailable" : "API not configured";
+    $("#connection-text").textContent = api ? "Scanner unavailable" : "Snapshot unavailable";
     $("#health-value").textContent = "Offline";
     $("#health-detail").textContent = "dashboard preview";
   }
