@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Read-only HZG and Inside Bar signal research dashboard.">
+  <title>Pattern Signal Research</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">READ-ONLY RESEARCH</p><h1>Pattern Signal</h1></div>
+    <div class="connection"><span id="connection-dot" class="dot muted"></span><span id="connection-text">Connecting to scanner</span></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow">HZG + INSIDE BAR</p><h2>Completed-candle signals, not trade instructions.</h2><p>Only the strongest eligible daily or weekly variation for each setup is shown. Results are historical research and include the specified pointy-low exit logic.</p></div>
+      <div class="hero-meta"><span>Data source</span><strong id="provider">Futu / awaiting API</strong><span>Last scan</span><strong id="last-scan">—</strong></div>
+    </section>
+    <section class="metrics" aria-label="Signal summary">
+      <article><p>Qualified signals</p><strong id="signal-count">—</strong><span>currently active</span></article>
+      <article><p>Daily</p><strong id="daily-count">—</strong><span>eligible setups</span></article>
+      <article><p>Weekly</p><strong id="weekly-count">—</strong><span>eligible setups</span></article>
+      <article><p>Scanner status</p><strong id="health-value">—</strong><span id="health-detail">checking source</span></article>
+    </section>
+    <section class="panel">
+      <div class="panel-header"><div><p class="eyebrow">CURRENT SETUPS</p><h3>Best eligible variation</h3></div><div class="filters"><input id="search" type="search" placeholder="Search symbol" aria-label="Search symbol"><button data-filter="all" class="selected">All</button><button data-filter="day">Daily</button><button data-filter="week">Weekly</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Symbol</th><th>Timeframe</th><th>Pattern</th><th>Trigger</th><th>Initial stop</th><th>10Y research</th><th>5Y research</th><th>1Y research</th><th>Setup date</th></tr></thead><tbody id="signals"></tbody></table></div>
+      <div id="empty-state" class="empty" hidden><strong>No qualified current setup.</strong><p>The scanner has completed its latest run. A setup appears here only when an approved variant satisfies its pre-defined historical eligibility tests.</p></div>
+    </section>
+    <section class="method-grid">
+      <article><p class="eyebrow">ENTRY</p><h3>Break of C high</h3><p>A is the mother candle. B and C stay inside A’s range. D breaks C’s high.</p></article>
+      <article><p class="eyebrow">RISK</p><h3>A-low initial stop</h3><p>The first protective level is the mother candle’s low. Same-bar entry/stop ambiguity is treated conservatively in the research engine.</p></article>
+      <article><p class="eyebrow">MANAGEMENT</p><h3>Pointy-low trail</h3><p>The stop only rises to a confirmed higher pointy low. The system does not invent a fixed take-profit.</p></article>
+    </section>
+    <p class="footnote">Historical returns do not predict future results. This dashboard monitors research setups only and does not route orders.</p>
+  </main>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
