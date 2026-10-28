@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily completed-candle BTC research scan
+
+[Timer]
+OnCalendar=*-*-* 00:20:00 UTC
+Persistent=true
+Unit=pattern-signal-crypto.service
+
+[Install]
+WantedBy=timers.target

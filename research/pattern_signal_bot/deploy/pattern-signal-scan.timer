@@ -1,0 +1,12 @@
+[Unit]
+Description=Run the pattern scanner after completed US daily bars
+
+[Timer]
+# Tue–Sat 00:20 New York time evaluates the prior US session; Saturday also
+# captures the completed weekly bar. Persistent runs catch up after a reboot.
+OnCalendar=Tue..Sat *-*-* 00:20:00 America/New_York
+Persistent=true
+Unit=pattern-signal-scan.service
+
+[Install]
+WantedBy=timers.target

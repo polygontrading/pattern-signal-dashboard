@@ -1,0 +1,14 @@
+[Unit]
+Description=Read-only BTC HZG + Inside pattern scanner
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/pattern-signal-bot
+Environment=PYTHONPATH=/opt/pattern-signal-bot
+Environment=HOME=/root
+ExecStart=/opt/futu/venv/bin/python -m pattern_signal_bot.scan --only-symbol BTC-USD
+ExecStartPost=/opt/futu/venv/bin/python -m pattern_signal_bot.publish_snapshot
+StandardOutput=journal
+StandardError=journal

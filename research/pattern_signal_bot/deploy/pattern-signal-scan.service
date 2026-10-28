@@ -1,0 +1,14 @@
+[Unit]
+Description=Read-only HZG + Inside pattern scanner
+After=network-online.target futu-opend.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/pattern-signal-bot
+Environment=PYTHONPATH=/opt/pattern-signal-bot
+Environment=HOME=/root
+ExecStart=/opt/futu/venv/bin/python -m pattern_signal_bot.scan
+ExecStartPost=/opt/futu/venv/bin/python -m pattern_signal_bot.publish_snapshot
+StandardOutput=journal
+StandardError=journal

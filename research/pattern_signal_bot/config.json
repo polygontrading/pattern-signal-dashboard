@@ -1,0 +1,26 @@
+{
+  "provider": {"host": "127.0.0.1", "port": 11111, "adjustment": "QFQ"},
+  "database": "pattern_signal.sqlite3",
+  "history_years": 10,
+  "minimum_historical_trades": 10,
+  "symbols": [
+    "US.MU", "US.NVDA", "US.META", "US.SPCX", "US.TSLA", "US.SNDK", "US.AAPL", "US.AMD", "US.INTC", "US.MSFT",
+    "US.AMZN", "US.GOOGL", "US.AVGO", "US.GOOG", "US.MRVL", "US.LITE", "US.PLTR", "US.BE", "US.ORCL", "US.NBIS",
+    "US.STX", "US.DELL", "US.MRNA", "US.WDC", "US.CRWV", "US.MSTR", "US.AMAT", "US.NFLX", "US.LRCX", "US.LLY",
+    "US.JPM", "US.V", "US.BRK.B", "US.WMT", "US.CRWD", "US.GEV", "US.MDT", "US.QCOM", "US.BAC", "US.COST",
+    "US.HOOD", "US.UNH", "US.CRM", "US.PANW", "US.GS", "US.XOM", "US.CAT", "US.COHR", "US.CSCO", "US.JNJ",
+    "US.CVX", "US.TXN", "US.BA", "US.KLAC", "US.MA", "US.TMO", "US.IREN", "US.CRDO", "US.NOW", "US.HD",
+    "US.COIN", "US.ACN", "US.GE", "US.MRK", "US.KO", "US.MCD", "US.CBRS", "US.SHOP", "US.NKE", "US.SMCI",
+    "US.SNOW", "US.PG", "US.IBM", "US.RKLB", "US.VLO", "US.ALAB", "US.ADI", "US.ABBV", "US.PEP", "US.APP",
+    "US.WFC", "US.VZ", "US.BKNG", "US.NU", "US.C", "US.VRT", "US.HPE", "US.GLW", "US.AMGN", "US.MELI",
+    "US.MS", "US.UBER", "US.T"
+  ],
+  "pending_stock_symbols": ["US.ADBE", "US.CIEN", "US.SNPS", "US.SATS", "US.MPC", "US.TWLO", "US.INTU"],
+  "crypto_symbols": ["BTC-USD"],
+  "timeframes": ["day", "week", "month"],
+  "variants": [
+    {"id": "hzg", "pattern": "hzg"},
+    {"id": "hzg_inside", "pattern": "hzg_inside"},
+    {"id": "inside", "pattern": "inside"}
+  ]
+}
