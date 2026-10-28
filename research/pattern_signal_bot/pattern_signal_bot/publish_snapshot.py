@@ -14,12 +14,10 @@ from pathlib import Path
 
 from .store import connect
 
-
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "git@github.com:polygontrading/pattern-signal-dashboard.git"
 CHECKOUT = Path("/opt/pattern-signal-dashboard-repo")
 DEPLOY_KEY = Path("/root/.ssh/pattern_signal_dashboard_deploy")
-
 
 def _git(*args: str) -> subprocess.CompletedProcess[str]:
     env = os.environ.copy()
@@ -27,11 +25,9 @@ def _git(*args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(["git", *args], cwd=CHECKOUT, env=env, check=True,
                           capture_output=True, text=True)
 
-
 def _write_json(path: Path, value: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-
 
 def _ensure_checkout() -> None:
     if CHECKOUT.exists():
@@ -42,12 +38,12 @@ def _ensure_checkout() -> None:
     subprocess.run(["git", "clone", "--branch", "main", REPOSITORY, str(CHECKOUT)],
                    env=env, check=True, capture_output=True, text=True)
 
-
 def publish() -> bool:
     _ensure_checkout()
     config = json.loads((ROOT / "config.json").read_text())
     db = connect(ROOT / config["database"])
-    active_variants = [item["id"] for item in config["variants"]]
+    # Candlestick pattern variants plus ingested webhook variants (box-theory arrow).
+    active_variants = [item["id"] for item in config["variants"]] + config.get("webhook_variants", [])
     placeholders = ",".join("?" for _ in active_variants)
     rows = db.execute(
         f"SELECT * FROM scans WHERE qualified=1 AND variant_id IN ({placeholders}) "
@@ -81,7 +77,6 @@ def publish() -> bool:
          "commit", "-m", "Refresh signal snapshot")
     _git("push", "origin", "main")
     return True
-
 
 if __name__ == "__main__":
     print(json.dumps({"published": publish()}))
