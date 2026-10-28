@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "entry": 80710.04,
+    "id": 1,
+    "initial_stop": 79107.0,
+    "metrics": {
+      "1": {
+        "mean_return_pct": 0.009912876694301393,
+        "total_return_pct": 0.10660239827012896,
+        "trades": 14,
+        "win_rate": 0.21428571428571427
+      },
+      "10": {
+        "mean_return_pct": 0.0344323423893259,
+        "total_return_pct": 15.527815714838159,
+        "trades": 110,
+        "win_rate": 0.33636363636363636
+      },
+      "5": {
+        "mean_return_pct": 0.006823733610794415,
+        "total_return_pct": 0.27222439613160887,
+        "trades": 58,
+        "win_rate": 0.27586206896551724
+      }
+    },
+    "provider": "coinbase",
+    "qualified": 1,
+    "scanned_at": "2026-10-28T00:20:02.085079+00:00",
+    "setup_date": "2026-10-27",
+    "symbol": "BTC-USD",
+    "timeframe": "day",
+    "variant_id": "hzg_inside_baseline"
+  }
+]
