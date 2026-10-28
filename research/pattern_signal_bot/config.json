@@ -21,6 +21,12 @@
   "variants": [
     {"id": "hzg", "pattern": "hzg"},
     {"id": "hzg_inside", "pattern": "hzg_inside"},
-    {"id": "inside", "pattern": "inside"}
-  ]
+    {"id": "inside", "pattern": "inside"},
+    {"id": "inside_vrr15", "pattern": "inside", "min_vrr": 1.5, "vrr_period": 5},
+    {"id": "inside_vrr20", "pattern": "inside", "min_vrr": 2.0, "vrr_period": 5},
+    {"id": "hzg_vrr15", "pattern": "hzg", "min_vrr": 1.5, "vrr_period": 5},
+    {"id": "hzg_vrr20", "pattern": "hzg", "min_vrr": 2.0, "vrr_period": 5}
+  ],
+  "webhook_variants": ["box_theory_arrow"],
+  "box_theory_reference_metrics": null
 }
