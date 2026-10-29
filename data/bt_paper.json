@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T14:44:19.934370+00:00",
+  "generated_at": "2026-10-29T15:13:26.318636+00:00",
   "trial_start": "2011-01-01",
   "mode": "preview",
   "equity0": 100000.0,
@@ -16,8 +16,8 @@
           "active_stop": 146.02000427,
           "risk": 59.16999817,
           "risk_pct": 28.8367,
-          "last_close": 162.32000732,
-          "unrealized_r": -0.7307,
+          "last_close": 161.0,
+          "unrealized_r": -0.753,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -73,8 +73,8 @@
           "active_stop": 40.20000076,
           "risk": 16.29000092,
           "risk_pct": 28.837,
-          "last_close": 56.54999924,
-          "unrealized_r": -0.0033,
+          "last_close": 57.52000046,
+          "unrealized_r": 0.0562,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -92,8 +92,8 @@
           "active_stop": 17.32999992,
           "risk": 4.39999962,
           "risk_pct": 20.2485,
-          "last_close": 20.92000008,
-          "unrealized_r": -0.1938,
+          "last_close": 20.65999985,
+          "unrealized_r": -0.2528,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -6710,10 +6710,10 @@
           "initial_stop": 168.520004,
           "active_stop": 168.520004,
           "risk_pct": 4.1302,
-          "last_close": 179.770004,
-          "unrealized_r": 0.5001,
+          "last_close": 184.710007,
+          "unrealized_r": 1.1792,
           "if_stopped_now_r": -1.0464,
-          "bars_held": 1,
+          "bars_held": 2,
           "market": "US"
         },
         {
@@ -6724,10 +6724,10 @@
           "initial_stop": 53.349998,
           "active_stop": 53.349998,
           "risk_pct": 4.5446,
-          "last_close": 54.66,
-          "unrealized_r": -0.5272,
+          "last_close": 54.48,
+          "unrealized_r": -0.598,
           "if_stopped_now_r": -1.042,
-          "bars_held": 2,
+          "bars_held": 3,
           "market": "US"
         },
         {
@@ -6738,10 +6738,10 @@
           "initial_stop": 170.0,
           "active_stop": 170.0,
           "risk_pct": 2.6123,
-          "last_close": 179.770004,
-          "unrealized_r": 1.0638,
+          "last_close": 184.710007,
+          "unrealized_r": 2.1449,
           "if_stopped_now_r": -1.0745,
-          "bars_held": 2,
+          "bars_held": 3,
           "market": "US"
         },
         {
@@ -6752,10 +6752,10 @@
           "initial_stop": 99.080002,
           "active_stop": 99.610001,
           "risk_pct": 2.5283,
-          "last_close": 105.620003,
-          "unrealized_r": 1.4626,
+          "last_close": 105.690002,
+          "unrealized_r": 1.4898,
           "if_stopped_now_r": -0.8712,
-          "bars_held": 2,
+          "bars_held": 3,
           "market": "US"
         },
         {
@@ -6766,38 +6766,10 @@
           "initial_stop": 328.149994,
           "active_stop": 357.290009,
           "risk_pct": 10.8385,
-          "last_close": 393.440002,
-          "unrealized_r": 0.617,
+          "last_close": 388.5,
+          "unrealized_r": 0.4935,
           "if_stopped_now_r": -0.2874,
-          "bars_held": 5,
-          "market": "US"
-        },
-        {
-          "symbol": "ADBE",
-          "pattern": "inside",
-          "entry_date": "2026-10-15",
-          "entry": 243.740005,
-          "initial_stop": 235.899994,
-          "active_stop": 241.509995,
-          "risk_pct": 3.2165,
-          "last_close": 249.759995,
-          "unrealized_r": 0.7042,
-          "if_stopped_now_r": -0.346,
-          "bars_held": 9,
-          "market": "US"
-        },
-        {
-          "symbol": "NOW",
-          "pattern": "inside",
-          "entry_date": "2026-10-15",
-          "entry": 142.800003,
-          "initial_stop": 138.389999,
-          "active_stop": 138.389999,
-          "risk_pct": 3.0882,
-          "last_close": 150.130005,
-          "unrealized_r": 1.5941,
-          "if_stopped_now_r": -1.0627,
-          "bars_held": 9,
+          "bars_held": 6,
           "market": "US"
         },
         {
@@ -6808,10 +6780,10 @@
           "initial_stop": 487.540009,
           "active_stop": 509.209991,
           "risk_pct": 5.3155,
-          "last_close": 529.690002,
-          "unrealized_r": 0.5013,
+          "last_close": 542.284973,
+          "unrealized_r": 0.9606,
           "if_stopped_now_r": -0.2454,
-          "bars_held": 9,
+          "bars_held": 10,
           "market": "US"
         },
         {
@@ -6830,6 +6802,36 @@
         }
       ],
       "closed": [
+        {
+          "symbol": "ADBE",
+          "pattern": "inside",
+          "entry_date": "2026-10-15",
+          "entry": 243.740005,
+          "initial_stop": 235.899994,
+          "exit_date": "2026-10-29",
+          "exit": 241.509995,
+          "net_r": -0.3459878093852593,
+          "risk_pct": 3.2165,
+          "reason": "trail_stop",
+          "holding_bars": 10,
+          "market": "US",
+          "pnl_usd": -172.99
+        },
+        {
+          "symbol": "NOW",
+          "pattern": "inside",
+          "entry_date": "2026-10-15",
+          "entry": 142.800003,
+          "initial_stop": 138.389999,
+          "exit_date": "2026-10-29",
+          "exit": 138.389999,
+          "net_r": -1.062699153213796,
+          "risk_pct": 3.0882,
+          "reason": "trail_stop",
+          "holding_bars": 10,
+          "market": "US",
+          "pnl_usd": -531.35
+        },
         {
           "symbol": "AMT",
           "pattern": "inside",
@@ -7399,6 +7401,21 @@
           "holding_bars": 0,
           "market": "US",
           "pnl_usd": -532.36
+        },
+        {
+          "symbol": "AMC",
+          "pattern": "inside",
+          "entry_date": "2026-08-24",
+          "entry": 2.58,
+          "initial_stop": 2.49,
+          "exit_date": "2026-09-01",
+          "exit": 2.56,
+          "net_r": -0.27905433198330454,
+          "risk_pct": 3.4884,
+          "reason": "trail_stop",
+          "holding_bars": 6,
+          "market": "US",
+          "pnl_usd": -139.53
         },
         {
           "symbol": "3231.TW",
@@ -10534,64 +10551,19 @@
           "holding_bars": 13,
           "market": "US",
           "pnl_usd": 1680.78
-        },
-        {
-          "symbol": "MMM",
-          "pattern": "inside",
-          "entry_date": "2025-11-24",
-          "entry": 169.380005,
-          "initial_stop": 165.169998,
-          "exit_date": "2025-12-04",
-          "exit": 169.610001,
-          "net_r": -0.025863472426986406,
-          "risk_pct": 2.4855,
-          "reason": "trail_stop",
-          "holding_bars": 7,
-          "market": "US",
-          "pnl_usd": -12.93
-        },
-        {
-          "symbol": "T",
-          "pattern": "inside",
-          "entry_date": "2025-11-21",
-          "entry": 25.629999,
-          "initial_stop": 25.120001,
-          "exit_date": "2025-12-03",
-          "exit": 25.43,
-          "net_r": -0.4917821028425094,
-          "risk_pct": 1.9898,
-          "reason": "trail_stop",
-          "holding_bars": 7,
-          "market": "US",
-          "pnl_usd": -245.89
-        },
-        {
-          "symbol": "AON",
-          "pattern": "inside",
-          "entry_date": "2025-11-21",
-          "entry": 346.059998,
-          "initial_stop": 343.179993,
-          "exit_date": "2025-11-25",
-          "exit": 343.179993,
-          "net_r": -1.2380809543527216,
-          "risk_pct": 0.8322,
-          "reason": "trail_stop",
-          "holding_bars": 2,
-          "market": "US",
-          "pnl_usd": -619.04
         }
       ],
       "stats": {
-        "trades": 4050,
-        "win_pct": 34.6,
-        "avg_r": 0.516,
-        "total_r": 2088.76,
-        "pnl_usd": 1044380.64,
-        "equity": 1144380.64,
+        "trades": 4079,
+        "win_pct": 34.4,
+        "avg_r": 0.508,
+        "total_r": 2073.89,
+        "pnl_usd": 1036946.04,
+        "equity": 1136946.04,
         "max_dd_pct": -9.82,
-        "return_pct": 1044.38,
-        "recent_avg_r": 0.415,
-        "recent_trades": 888
+        "return_pct": 1036.95,
+        "recent_avg_r": 0.407,
+        "recent_trades": 894
       },
       "by_market": {
         "HK": {
@@ -10631,16 +10603,16 @@
           "recent_trades": 20
         },
         "US": {
-          "trades": 3423,
-          "win_pct": 33.8,
-          "avg_r": 0.362,
-          "total_r": 1239.19,
-          "pnl_usd": 619594.87,
-          "equity": 719594.87,
+          "trades": 3452,
+          "win_pct": 33.7,
+          "avg_r": 0.355,
+          "total_r": 1224.32,
+          "pnl_usd": 612160.27,
+          "equity": 712160.27,
           "max_dd_pct": -9.84,
-          "return_pct": 619.59,
-          "recent_avg_r": 0.362,
-          "recent_trades": 725
+          "return_pct": 612.16,
+          "recent_avg_r": 0.352,
+          "recent_trades": 731
         },
         "crypto": {
           "trades": 191,
@@ -10655,7 +10627,7 @@
           "recent_trades": 73
         }
       },
-      "open_count": 9
+      "open_count": 7
     }
   }
 }
