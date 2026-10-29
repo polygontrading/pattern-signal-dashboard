@@ -47,10 +47,7 @@
     <div class="sub"><span class="dot" id="dot"></span><span id="status">Loading…</span></div>
   </header>
 
-  <div class="tabs" id="tabs">
-    <button class="tab active" data-strat="box_theory">Type A · Box Theory</button>
-    <button class="tab" data-strat="combined">Type B · Candlestick Combined</button>
-  </div>
+  <div class="tabs" id="tabs"></div>
 
   <div class="cards" id="cards"></div>
 
@@ -129,7 +126,13 @@ function render(){
   closedTable(s.closed||[]);
 }
 
-document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{S.strat=b.dataset.strat; render();}));
+const LABELS = {box_theory:"Box Theory · auto", box_theory_us_real:"Box Theory · US real", combined:"Candlestick · Type B"};
+function buildTabs(){
+  const keys = Object.keys(S.data.strategies);
+  if(!keys.includes(S.strat)) S.strat = keys[0];
+  $("#tabs").innerHTML = keys.map(k=>`<button class="tab" data-strat="${k}">${LABELS[k]||k}</button>`).join("");
+  document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{S.strat=b.dataset.strat; render();}));
+}
 
 async function load(){
   try{
@@ -137,7 +140,8 @@ async function load(){
     S.data = d;
     const modeLabel = d.mode === "live" ? "Live forward trial" : "Backtest preview";
     $("#status").textContent = `${modeLabel} since ${d.trial_start} · ${money(d.equity0)} @ ${(d.risk_pct*100).toFixed(2)}% risk/trade · updated ${String(d.generated_at).replace('T',' ').slice(0,16)} UTC`;
-    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. Box Theory (Type A) = arrow + structure, managed to red-after-1R / 2-ATR trail. Candlestick combined (Type B) = HZG/inside + VRR, trailing-pivot exit. Sizing fixed-fractional at ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%.`;
+    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · auto</b> = crypto + US on the free replica arrow (runs now). <b>Box Theory · US real</b> = US on the real 量價齊揚 / 逆勢止漲 webhook arrows (fills as alerts go live) — compare it against auto to see if the real arrow wins in US. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%.`;
+    buildTabs();
     render();
   }catch(e){
     $("#dot").style.background="var(--neg)";
