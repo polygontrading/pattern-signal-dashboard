@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T04:26:39.304243+00:00",
+  "generated_at": "2026-10-29T04:30:40.118129+00:00",
   "trial_start": "2024-01-01",
   "mode": "preview",
   "equity0": 100000.0,
@@ -15,6 +15,9 @@
           "initial_stop": 1.7807,
           "active_stop": 1.7807,
           "risk": 2.3842,
+          "risk_pct": 57.2451,
+          "last_close": 4.729,
+          "unrealized_r": 0.2329,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
