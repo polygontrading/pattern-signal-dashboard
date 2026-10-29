@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T05:39:16.008800+00:00",
+  "generated_at": "2026-10-29T07:35:53.232670+00:00",
   "trial_start": "2024-01-01",
   "mode": "preview",
   "equity0": 100000.0,
@@ -2897,6 +2897,21 @@
           "pnl_usd": -529.13
         },
         {
+          "symbol": "CCL",
+          "pattern": "inside",
+          "entry_date": "2026-09-29",
+          "entry": 24.389999,
+          "initial_stop": 21.85,
+          "exit_date": "2026-10-14",
+          "exit": 25.870001,
+          "net_r": 0.5623282259641592,
+          "risk_pct": 10.4141,
+          "reason": "trail_stop",
+          "holding_bars": 11,
+          "market": "US",
+          "pnl_usd": 281.16
+        },
+        {
           "symbol": "NTAP",
           "pattern": "inside",
           "entry_date": "2026-09-28",
@@ -3767,6 +3782,21 @@
           "pnl_usd": -537.57
         },
         {
+          "symbol": "HLT",
+          "pattern": "hzg_inside",
+          "entry_date": "2026-07-16",
+          "entry": 329.76001,
+          "initial_stop": 319.109985,
+          "exit_date": "2026-07-17",
+          "exit": 319.109985,
+          "net_r": -1.0598667536830138,
+          "risk_pct": 3.2296,
+          "reason": "trail_stop",
+          "holding_bars": 1,
+          "market": "US",
+          "pnl_usd": -529.93
+        },
+        {
           "symbol": "RDDT",
           "pattern": "inside",
           "entry_date": "2026-07-01",
@@ -3930,6 +3960,21 @@
           "holding_bars": 9,
           "market": "US",
           "pnl_usd": 671.47
+        },
+        {
+          "symbol": "HLT",
+          "pattern": "inside",
+          "entry_date": "2026-05-27",
+          "entry": 328.109985,
+          "initial_stop": 321.709991,
+          "exit_date": "2026-06-10",
+          "exit": 338.399994,
+          "net_r": 1.5021709139869477,
+          "risk_pct": 1.9506,
+          "reason": "trail_stop",
+          "holding_bars": 10,
+          "market": "US",
+          "pnl_usd": 751.09
         },
         {
           "symbol": "COHR",
@@ -5010,6 +5055,21 @@
           "holding_bars": 12,
           "market": "US",
           "pnl_usd": 1237.22
+        },
+        {
+          "symbol": "HLT",
+          "pattern": "inside",
+          "entry_date": "2026-02-10",
+          "entry": 318.049988,
+          "initial_stop": 311.25,
+          "exit_date": "2026-02-19",
+          "exit": 313.600006,
+          "net_r": -0.7465535649152968,
+          "risk_pct": 2.138,
+          "reason": "trail_stop",
+          "holding_bars": 6,
+          "market": "US",
+          "pnl_usd": -373.28
         },
         {
           "symbol": "LITE",
@@ -6465,76 +6525,16 @@
           "holding_bars": 0,
           "market": "US",
           "pnl_usd": -561.49
-        },
-        {
-          "symbol": "CRDO",
-          "pattern": "inside",
-          "entry_date": "2025-10-14",
-          "entry": 150.300003,
-          "initial_stop": 143.5,
-          "exit_date": "2025-10-14",
-          "exit": 143.5,
-          "net_r": -1.0421636997117432,
-          "risk_pct": 4.5243,
-          "reason": "stop_same_bar",
-          "holding_bars": 0,
-          "market": "US",
-          "pnl_usd": -521.08
-        },
-        {
-          "symbol": "MS",
-          "pattern": "inside",
-          "entry_date": "2025-10-14",
-          "entry": 155.619995,
-          "initial_stop": 153.350006,
-          "exit_date": "2025-10-14",
-          "exit": 153.350006,
-          "net_r": -1.1349758156286458,
-          "risk_pct": 1.4587,
-          "reason": "stop_same_bar",
-          "holding_bars": 0,
-          "market": "US",
-          "pnl_usd": -567.49
-        },
-        {
-          "symbol": "PNC",
-          "pattern": "inside",
-          "entry_date": "2025-10-14",
-          "entry": 187.720001,
-          "initial_stop": 184.710007,
-          "exit_date": "2025-10-14",
-          "exit": 184.710007,
-          "net_r": -1.1226085169348679,
-          "risk_pct": 1.6034,
-          "reason": "stop_same_bar",
-          "holding_bars": 0,
-          "market": "US",
-          "pnl_usd": -561.3
-        },
-        {
-          "symbol": "ROK",
-          "pattern": "inside",
-          "entry_date": "2025-10-14",
-          "entry": 340.980011,
-          "initial_stop": 336.619995,
-          "exit_date": "2025-10-14",
-          "exit": 336.619995,
-          "net_r": -1.154258021759004,
-          "risk_pct": 1.2787,
-          "reason": "stop_same_bar",
-          "holding_bars": 0,
-          "market": "US",
-          "pnl_usd": -577.13
         }
       ],
       "stats": {
-        "trades": 776,
-        "win_pct": 35.3,
-        "avg_r": 0.359,
-        "total_r": 278.72,
-        "pnl_usd": 139357.86,
-        "equity": 239357.86,
-        "max_dd_pct": -10.69
+        "trades": 798,
+        "win_pct": 35.6,
+        "avg_r": 0.356,
+        "total_r": 283.74,
+        "pnl_usd": 141868.91,
+        "equity": 241868.91,
+        "max_dd_pct": -10.91
       },
       "open_count": 8
     }
