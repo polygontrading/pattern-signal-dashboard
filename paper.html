@@ -65,7 +65,7 @@
       <table class="tbl">
         <thead><tr><th>Market</th><th>Signal</th><th>Trades</th><th>R / trade</th><th>Recent 2024+</th><th>≈ P&amp;L</th></tr></thead>
         <tbody>
-          <tr><td class="sym">US equities</td><td>量價齊揚 volume-price arrow</td><td>129</td><td class="pos">0.571</td><td class="pos">0.635</td><td class="pos">+$36,800</td></tr>
+          <tr><td class="sym">US equities</td><td>volume-price arrow</td><td>129</td><td class="pos">0.571</td><td class="pos">0.635</td><td class="pos">+$36,800</td></tr>
           <tr><td class="sym">Crypto</td><td>volume-surge</td><td>41</td><td class="pos">0.794</td><td class="pos">0.750</td><td class="pos">+$16,300</td></tr>
           <tr><td class="sym">Hong Kong</td><td>volume-surge</td><td>70</td><td class="pos">0.429</td><td class="pos">0.744</td><td class="pos">+$15,000</td></tr>
           <tr><td class="sym">Japan</td><td>volume-surge</td><td>60</td><td class="pos">0.359</td><td class="pos">0.524</td><td class="pos">+$10,800</td></tr>
@@ -73,7 +73,7 @@
         </tbody>
       </table>
     </div>
-    <div class="sub" style="margin-top:8px">Each market uses whichever volume signal is strongest there — the 量價齊揚 volume-price arrow on US equities, a volume-surge rule elsewhere. Positive in every market across the full history and the recent 2024+ window.</div>
+    <div class="sub" style="margin-top:8px">Each market uses whichever volume signal is strongest there — the volume-price arrow on US equities, a volume-surge rule elsewhere. Positive in every market across the full history and the recent 2024+ window.</div>
   </section>
 
   <h2>Paper trade — historical &amp; live</h2>
@@ -123,12 +123,13 @@ function openTable(rows){
     <td>${p.entry_date}</td>
     <td>${num(p.entry)}</td>
     <td>${num(p.active_stop)}</td>
+    <td>${p.last_close!=null ? num(p.last_close) : '—'}</td>
     <td class="${sign(p.unrealized_r)}">${num(p.unrealized_r,2)}R</td>
     <td>${p.hit_1r!==undefined ? (p.hit_1r?'<span class="yes">1R</span>':'<span class="no">—</span>') : (p.bars_held!==undefined ? p.bars_held+'d' : '')}</td>
     <td>${p.red_ref!=null ? num(p.red_ref) : (p.if_stopped_now_r!==undefined ? '<span class="'+sign(p.if_stopped_now_r)+'">'+num(p.if_stopped_now_r,2)+'R</span>' : '—')}</td>
   </tr>`).join("");
   $("#open").innerHTML = `<table class="tbl"><thead><tr>
-    <th>Symbol</th><th>Market</th><th>Entered</th><th>Entry</th><th>Stop</th>
+    <th>Symbol</th><th>Market</th><th>Entered</th><th>Entry</th><th>Stop</th><th>Last</th>
     <th>Unrzd R</th><th>1R / held</th><th>Red-ref / if-stop</th></tr></thead><tbody>${body}</tbody></table>`;
 }
 
@@ -172,7 +173,7 @@ async function load(){
     S.data = d;
     const modeLabel = d.mode === "live" ? "Live forward trial" : "Backtest preview";
     $("#status").textContent = `${modeLabel} since ${d.trial_start} · ${money(d.equity0)} @ ${(d.risk_pct*100).toFixed(2)}% risk/trade · updated ${String(d.generated_at).replace('T',' ').slice(0,16)} UTC`;
-    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · hybrid</b> = US equities on the 量價齊揚 / 逆勢止漲 volume-price arrows (via TradingView) + crypto on the volume-surge signal. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%. Historical trades use the original US arrows (where available) and the volume-surge signal on crypto; new trades appear here as fresh arrows fire going forward.`;
+    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · hybrid</b> = US equities on the volume-price arrows (via TradingView) + crypto on the volume-surge signal. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%. Historical trades use the original US arrows (where available) and the volume-surge signal on crypto; new trades appear here as fresh arrows fire going forward.`;
     buildTabs();
     render();
   }catch(e){
