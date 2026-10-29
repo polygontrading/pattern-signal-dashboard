@@ -1,5 +1,18 @@
 [
   {
+    "entry": 184.07,
+    "id": 17,
+    "initial_stop": 184.07,
+    "metrics": {},
+    "provider": "tradingview",
+    "qualified": 1,
+    "scanned_at": "2026-10-29T20:01:14.871461+00:00",
+    "setup_date": "2026-10-29",
+    "symbol": "US.XLV",
+    "timeframe": "day",
+    "variant_id": "box_theory_arrow"
+  },
+  {
     "entry": 1287.84,
     "id": 7,
     "initial_stop": 1229.0,
