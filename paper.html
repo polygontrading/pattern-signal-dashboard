@@ -52,6 +52,7 @@
     <h2 style="margin:0 0 3px;color:var(--ink);font-size:16px;text-transform:none;letter-spacing:0">Strategy performance — Box Theory hybrid</h2>
     <div class="sub">5 markets, each on its strongest volume signal · 2011–2026 · $100,000 @ 0.50% risk/trade</div>
     <div class="cards">
+      <div class="card"><div class="k">Return</div><div class="v pos">+86%</div></div>
       <div class="card"><div class="k">Net P&amp;L</div><div class="v pos">+$86,000</div></div>
       <div class="card"><div class="k">Total R</div><div class="v pos">+172R</div></div>
       <div class="card"><div class="k">Avg R / trade</div><div class="v pos">+0.52</div></div>
@@ -100,13 +101,15 @@ const reason = t => t.exit_reason || t.reason || "";
 const mtag = m => `<span class="tag ${m==='crypto'?'crypto':''}">${m}</span>`;
 
 function cards(st){
+  const ret = st.return_pct !== undefined ? st.return_pct : (st.pnl_usd / (S.data.equity0||100000) * 100);
   const c = [
     ["Equity", money(st.equity)],
+    ["Return", `<span class="${sign(ret)}">${ret>=0?"+":""}${num(ret,1)}%</span>`],
     ["P&L", `<span class="${sign(st.pnl_usd)}">${money(st.pnl_usd)}</span>`],
-    ["Total R", `<span class="${sign(st.total_r)}">${num(st.total_r,1)}R</span>`],
-    ["Avg R / trade", `<span class="${sign(st.avg_r)}">${num(st.avg_r,3)}</span>`],
-    ["Trades", st.trades],
     ["Win rate", st.trades ? num(st.win_pct,1)+"%" : "—"],
+    ["Trades", st.trades],
+    ["Avg R / trade", `<span class="${sign(st.avg_r)}">${num(st.avg_r,3)}</span>`],
+    ["Total R", `<span class="${sign(st.total_r)}">${num(st.total_r,1)}R</span>`],
     ["Max DD", `<span class="neg">${num(st.max_dd_pct,2)}%</span>`],
   ];
   $("#cards").innerHTML = c.map(([k,v])=>`<div class="card"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
@@ -155,7 +158,7 @@ function render(){
   closedTable(s.closed||[]);
 }
 
-const LABELS = {box_theory:"Box Theory · auto", box_theory_us_real:"Box Theory · US real", combined:"Candlestick · Type B"};
+const LABELS = {box_theory_hybrid:"Box Theory · hybrid", combined:"Candlestick · Type B"};
 function buildTabs(){
   const keys = Object.keys(S.data.strategies);
   if(!keys.includes(S.strat)) S.strat = keys[0];
@@ -169,7 +172,7 @@ async function load(){
     S.data = d;
     const modeLabel = d.mode === "live" ? "Live forward trial" : "Backtest preview";
     $("#status").textContent = `${modeLabel} since ${d.trial_start} · ${money(d.equity0)} @ ${(d.risk_pct*100).toFixed(2)}% risk/trade · updated ${String(d.generated_at).replace('T',' ').slice(0,16)} UTC`;
-    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · auto</b> = crypto + US on the free replica arrow (runs now). <b>Box Theory · US real</b> = US on the real 量價齊揚 / 逆勢止漲 webhook arrows (fills as alerts go live) — compare it against auto to see if the real arrow wins in US. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%.`;
+    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · hybrid</b> = US equities on the 量價齊揚 / 逆勢止漲 volume-price arrows (via TradingView) + crypto on the volume-surge signal. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%. The US side fills as arrow alerts fire going forward; crypto is tracked from ${d.trial_start}.`;
     buildTabs();
     render();
   }catch(e){
