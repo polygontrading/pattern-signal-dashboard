@@ -76,7 +76,7 @@
     <div class="sub" style="margin-top:8px">Each market uses whichever volume signal is strongest there — the 量價齊揚 volume-price arrow on US equities, a volume-surge rule elsewhere. Positive in every market across the full history and the recent 2024+ window.</div>
   </section>
 
-  <h2>Forward paper trade — live tracking</h2>
+  <h2>Paper trade — historical &amp; live</h2>
   <div class="tabs" id="tabs"></div>
 
   <div class="cards" id="cards"></div>
@@ -172,7 +172,7 @@ async function load(){
     S.data = d;
     const modeLabel = d.mode === "live" ? "Live forward trial" : "Backtest preview";
     $("#status").textContent = `${modeLabel} since ${d.trial_start} · ${money(d.equity0)} @ ${(d.risk_pct*100).toFixed(2)}% risk/trade · updated ${String(d.generated_at).replace('T',' ').slice(0,16)} UTC`;
-    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · hybrid</b> = US equities on the 量價齊揚 / 逆勢止漲 volume-price arrows (via TradingView) + crypto on the volume-surge signal. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%. The US side fills as arrow alerts fire going forward; crypto is tracked from ${d.trial_start}.`;
+    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · hybrid</b> = US equities on the 量價齊揚 / 逆勢止漲 volume-price arrows (via TradingView) + crypto on the volume-surge signal. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%. Historical trades use the original US arrows (where available) and the volume-surge signal on crypto; new trades appear here as fresh arrows fire going forward.`;
     buildTabs();
     render();
   }catch(e){
