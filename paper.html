@@ -97,7 +97,26 @@ const money = v => "$" + Number(v).toLocaleString(undefined,{maximumFractionDigi
 const num = (v,d=2) => Number(v).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
 const sign = v => (Number(v) >= 0 ? "pos" : "neg");
 const R = t => t.net_r !== undefined ? t.net_r : t.net_r_10bps_side;
-const reason = t => t.exit_reason || t.reason || "";
+const REASON_LABELS = {
+  stop_intraday:        "stopped out",
+  stop_gap:             "stopped out · gap",
+  stop_same_bar:        "stopped out · entry bar",
+  trail_stop:           "trailing stop",
+  red_reference_close:  "red-arrow exit",
+  early_failed_breakout:"failed breakout",
+  end_of_data:          "open",
+};
+const REASON_TIPS = {
+  stop_intraday:        "Price dropped to the stop level and the position closed there. This says nothing about holding time — a trade can trail for weeks before the stop is finally touched.",
+  stop_gap:             "Opened below the stop and closed at the open (gapped straight through the stop).",
+  stop_same_bar:        "The stop was touched on the very bar the position was entered.",
+  trail_stop:           "Closed at the trailing stop, which had ratcheted up under each new pivot low.",
+  red_reference_close:  "Closed on a red exit-signal bar.",
+  early_failed_breakout:"The breakout failed back inside the box within the first few bars.",
+  end_of_data:          "Still open at the end of the data.",
+};
+const reason = t => { const r = t.exit_reason || t.reason || ""; return REASON_LABELS[r] || r.replace(/_/g," "); };
+const reasonTip = t => { const r = t.exit_reason || t.reason || ""; return REASON_TIPS[r] || ""; };
 const mtag = m => `<span class="tag ${m==='crypto'?'crypto':''}">${m}</span>`;
 
 function cards(st){
@@ -143,7 +162,7 @@ function closedTable(rows){
     <td>${num(t.exit)}</td>
     <td class="${sign(R(t))}">${num(R(t),2)}R</td>
     <td class="${sign(t.pnl_usd)}">${money(t.pnl_usd)}</td>
-    <td><span class="tag">${reason(t).replace(/_/g,' ')}</span></td>
+    <td><span class="tag" title="${reasonTip(t)}">${reason(t)}</span></td>
   </tr>`).join("");
   $("#closed").innerHTML = `<table class="tbl"><thead><tr>
     <th>Symbol</th><th>Market</th><th>Held</th><th>Entry</th><th>Exit</th>
