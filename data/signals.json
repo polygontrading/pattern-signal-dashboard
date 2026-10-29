@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "entry": 1287.84,
+    "id": 7,
+    "initial_stop": 1229.0,
+    "metrics": {
+      "1": {
+        "mean_return_pct": 0.25278595391460446,
+        "total_return_pct": 1.843275714105908,
+        "trades": 6,
+        "win_rate": 0.5
+      },
+      "10": {
+        "mean_return_pct": 0.31583243474762546,
+        "total_return_pct": 11.021033129621255,
+        "trades": 12,
+        "win_rate": 0.4166666666666667
+      },
+      "5": {
+        "mean_return_pct": 0.31583243474762546,
+        "total_return_pct": 11.021033129621255,
+        "trades": 12,
+        "win_rate": 0.4166666666666667
+      }
+    },
+    "provider": "futu",
+    "qualified": 1,
+    "scanned_at": "2026-10-28T04:48:29.801122+00:00",
+    "setup_date": "2026-10-27",
+    "symbol": "US.SNDK",
+    "timeframe": "day",
+    "variant_id": "inside"
+  }
+]
