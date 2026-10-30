@@ -176,8 +176,8 @@ const META = {
   },
   combined: {
     title: "Candlestick — Type B",
-    desc: "Inside / HZG breakout + VRR filter, trailing-pivot-low exit · all markets · 2011–2026 · $100k @ 0.50% risk/trade",
-    note: "A profitable pattern study, shown under an unlimited-funds assumption for now — it fires on many symbols at once, so position concurrency is not yet capped. Trade-quality filtering is the next step.",
+    desc: "Inside / HZG-inside breakout, strong volume-surge filter (VRR≥2.5), trailing-pivot-low exit · all markets · 2011–2026 · $100k @ 0.50% risk/trade",
+    note: "Refined to the high-quality set: raising the volume-surge filter to VRR≥2.5 (and dropping the loose HZG pattern) cut trades ~10× and max drawdown from ~17% to ~2.5% while lifting per-trade quality. Sizing is still fixed-fractional; the low drawdown leaves plenty of room to size up.",
   },
 };
 function render(){
