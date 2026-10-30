@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T01:57:47.681968+00:00",
+  "generated_at": "2026-10-30T02:02:52.696663+00:00",
   "trial_start": "2011-01-01",
   "mode": "preview",
   "equity0": 100000.0,
@@ -16,8 +16,8 @@
           "active_stop": 146.02000427,
           "risk": 59.16999817,
           "risk_pct": 28.8367,
-          "last_close": 161.0,
-          "unrealized_r": -0.753,
+          "last_close": 160.58999634,
+          "unrealized_r": -0.7599,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -35,8 +35,8 @@
           "active_stop": 1.7807,
           "risk": 2.3842,
           "risk_pct": 57.2451,
-          "last_close": 4.729,
-          "unrealized_r": 0.2329,
+          "last_close": 4.0521,
+          "unrealized_r": -0.0508,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -54,8 +54,8 @@
           "active_stop": 6905.0,
           "risk": 1510.0,
           "risk_pct": 17.9441,
-          "last_close": 8158.0,
-          "unrealized_r": -0.1812,
+          "last_close": 8329.0,
+          "unrealized_r": -0.068,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -73,8 +73,8 @@
           "active_stop": 40.20000076,
           "risk": 16.29000092,
           "risk_pct": 28.837,
-          "last_close": 57.52000046,
-          "unrealized_r": 0.0562,
+          "last_close": 56.95000076,
+          "unrealized_r": 0.0213,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -92,8 +92,8 @@
           "active_stop": 17.32999992,
           "risk": 4.39999962,
           "risk_pct": 20.2485,
-          "last_close": 20.65999985,
-          "unrealized_r": -0.2528,
+          "last_close": 19.92000008,
+          "unrealized_r": -0.4208,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -111,8 +111,8 @@
           "active_stop": 283.20001221,
           "risk": 113.79998779,
           "risk_pct": 28.665,
-          "last_close": 363.79998779,
-          "unrealized_r": -0.2984,
+          "last_close": 364.6000061,
+          "unrealized_r": -0.2914,
           "hit_1r": false,
           "hit_2r": false,
           "red_ref": null,
@@ -6701,23 +6701,23 @@
       "open_count": 6
     },
     "combined": {
-      "open": [
+      "open": [],
+      "closed": [
         {
           "symbol": "2002.TW",
           "pattern": "inside",
           "entry_date": "2026-10-14",
           "entry": 19.200001,
           "initial_stop": 19.049999,
-          "active_stop": 19.25,
+          "exit_date": "2026-10-30",
+          "exit": 19.25,
+          "net_r": 0.07691720821776446,
           "risk_pct": 0.7813,
-          "last_close": 19.450001,
-          "unrealized_r": 1.4076,
-          "if_stopped_now_r": 0.0769,
-          "bars_held": 10,
-          "market": "TW"
-        }
-      ],
-      "closed": [
+          "reason": "trail_stop",
+          "holding_bars": 11,
+          "market": "TW",
+          "pnl_usd": 38.46
+        },
         {
           "symbol": "AMT",
           "pattern": "inside",
@@ -10452,34 +10452,19 @@
           "holding_bars": 1,
           "market": "US",
           "pnl_usd": -823.68
-        },
-        {
-          "symbol": "SCHW",
-          "pattern": "inside",
-          "entry_date": "2022-07-28",
-          "entry": 64.110001,
-          "initial_stop": 61.150002,
-          "exit_date": "2022-08-19",
-          "exit": 74.989998,
-          "net_r": 3.6250575698295013,
-          "risk_pct": 4.6171,
-          "reason": "trail_stop",
-          "holding_bars": 16,
-          "market": "US",
-          "pnl_usd": 1812.53
         }
       ],
       "stats": {
-        "trades": 654,
-        "win_pct": 42.5,
-        "avg_r": 0.859,
-        "total_r": 561.82,
-        "pnl_usd": 280909.11,
-        "equity": 380909.11,
+        "trades": 655,
+        "win_pct": 42.6,
+        "avg_r": 0.858,
+        "total_r": 561.9,
+        "pnl_usd": 280947.57,
+        "equity": 380947.57,
         "max_dd_pct": -2.47,
-        "return_pct": 280.91,
+        "return_pct": 280.95,
         "recent_avg_r": 0.111,
-        "recent_trades": 168
+        "recent_trades": 169
       },
       "by_market": {
         "HK": {
@@ -10507,16 +10492,16 @@
           "recent_trades": 4
         },
         "TW": {
-          "trades": 25,
-          "win_pct": 56.0,
-          "avg_r": 2.182,
-          "total_r": 54.55,
-          "pnl_usd": 27276.23,
-          "equity": 127276.23,
+          "trades": 26,
+          "win_pct": 57.7,
+          "avg_r": 2.101,
+          "total_r": 54.63,
+          "pnl_usd": 27314.68,
+          "equity": 127314.68,
           "max_dd_pct": -1.15,
-          "return_pct": 27.28,
-          "recent_avg_r": 0.438,
-          "recent_trades": 5
+          "return_pct": 27.31,
+          "recent_avg_r": 0.378,
+          "recent_trades": 6
         },
         "US": {
           "trades": 554,
@@ -10543,7 +10528,7 @@
           "recent_trades": 6
         }
       },
-      "open_count": 1
+      "open_count": 0
     }
   }
 }
