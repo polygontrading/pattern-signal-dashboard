@@ -44,7 +44,7 @@
 <div class="wrap">
   <header>
     <h1>Strategy Paper Trade</h1>
-    <div class="sub" style="margin-bottom:3px">Forward studies on live data — <b>Box Theory</b> (our own signal, and the hybrid arrow) and <b>Candlestick</b> (Type B). Pick a study below; each panel shows that study only.</div>
+    <div class="sub" style="margin-bottom:3px">Forward studies on live data — <b>Box Theory</b> (our own signal, with and without accumulation, plus the hybrid arrow) and <b>Candlestick</b> (Type B). Pick a study below; each panel shows that study only.</div>
     <div class="sub"><span class="dot" id="dot"></span><span id="status">Loading…</span></div>
   </header>
 
@@ -68,7 +68,7 @@
 </div>
 
 <script>
-const S = {data:null, strat:"box_theory_owned"};
+const S = {data:null, strat:"box_theory_owned_accum"};
 const $ = s => document.querySelector(s);
 const money = v => "$" + Number(v).toLocaleString(undefined,{maximumFractionDigits:0});
 const num = (v,d=2) => Number(v).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -116,7 +116,7 @@ function openTable(rows){
   if(!rows.length){ $("#open").innerHTML = `<div class="empty">No open positions.</div>`; return; }
   const body = rows.map(p=>`<tr>
     <td class="sym">${p.symbol.replace('US.','')}</td>
-    <td>${mtag(p.market)}${p.pattern && p.pattern!=='box_theory' ? ' <span class="tag">'+p.pattern.replace('_',' ')+'</span>':''}</td>
+    <td>${mtag(p.market)}${p.pattern && p.pattern!=='box_theory' ? ' <span class="tag">'+p.pattern.replace('_',' ')+'</span>':''}${p.units>1 ? ' <span class="tag">×'+p.units+'u</span>':''}</td>
     <td>${p.entry_date}</td>
     <td>${num(p.entry)}</td>
     <td>${num(p.active_stop)}</td>
@@ -134,7 +134,7 @@ function closedTable(rows){
   if(!rows.length){ $("#closed").innerHTML = `<div class="empty">No closed trades yet.</div>`; return; }
   const body = rows.map(t=>`<tr>
     <td class="sym">${t.symbol.replace('US.','')}</td>
-    <td>${mtag(t.market)}${t.pattern && t.pattern!=='box_theory' ? ' <span class="tag">'+t.pattern.replace('_',' ')+'</span>':''}</td>
+    <td>${mtag(t.market)}${t.pattern && t.pattern!=='box_theory' ? ' <span class="tag">'+t.pattern.replace('_',' ')+'</span>':''}${t.units>1 ? ' <span class="tag">×'+t.units+'u</span>':''}</td>
     <td>${t.entry_date} → ${t.exit_date}</td>
     <td>${num(t.entry)}</td>
     <td>${num(t.exit)}</td>
@@ -152,6 +152,7 @@ const MKT_ORDER = ["US","crypto","HK","JP","TW"];
 function sigLabel(strat, m){
   if(strat==="box_theory_hybrid") return m==="US" ? "volume-price arrow" : "volume-surge";
   if(strat==="box_theory_owned") return "owned volume signal";
+  if(strat==="box_theory_owned_accum") return "owned signal + accumulation";
   return "candlestick";
 }
 function byMarketTable(bm, strat){
@@ -170,6 +171,11 @@ function byMarketTable(bm, strat){
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 const META = {
+  box_theory_owned_accum: {
+    title: "Box Theory — owned + accumulation",
+    desc: "Owned signal, scaling into winners · Bollinger-gated adds, Donchian-tightened exit · 5 markets · 2011–2026 · $100k @ 0.50% risk/trade",
+    note: "The owned signal, but now it scales into winners: it adds at +1R…+5R of favourable progress — only when the Bollinger band has opened up (volatility expanding = a real trend) — and tightens the shared stop to a 10-day low once it holds two or more units, banking the accumulated gains. Each row is one position (its R is the whole bundle, ×N units shown). Out-of-sample this is the strongest configuration found: better risk-adjusted return than the base owned signal at lower drawdown.",
+  },
   box_theory_owned: {
     title: "Box Theory — our own signal",
     desc: "Our own volume signal (no third-party arrow) · 5 markets · US = current S&P-100 by market cap · 2011–2026 · $100k @ 0.50% risk/trade",
@@ -200,7 +206,7 @@ function render(){
   closedTable(s.closed||[]);
 }
 
-const LABELS = {box_theory_owned:"Box Theory · owned signal", box_theory_hybrid:"Box Theory · hybrid", combined:"Candlestick · Type B"};
+const LABELS = {box_theory_owned_accum:"Box Theory · owned + accum", box_theory_owned:"Box Theory · owned signal", box_theory_hybrid:"Box Theory · hybrid", combined:"Candlestick · Type B"};
 function buildTabs(){
   const keys = Object.keys(S.data.strategies);
   if(!keys.includes(S.strat)) S.strat = keys[0];
@@ -214,7 +220,7 @@ async function load(){
     S.data = d;
     const modeLabel = d.mode === "live" ? "Live forward trial" : "Backtest preview";
     $("#status").textContent = `${modeLabel} since ${d.trial_start} · ${money(d.equity0)} @ ${(d.risk_pct*100).toFixed(2)}% risk/trade · updated ${String(d.generated_at).replace('T',' ').slice(0,16)} UTC`;
-    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · owned signal</b> = the same engine driven entirely by our own volume rule (a close up or down on volume ≥ 1.8× its 20-day average), run on the current S&P-100 by market cap — no third-party arrow. <b>Box Theory · hybrid</b> = US equities on the volume-price arrows (via TradingView); crypto, Hong Kong, Japan and Taiwan on the volume-surge signal, kept for owned-vs-real comparison. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%. New trades appear here as fresh signals fire going forward.`;
+    $("#foot").innerHTML = `Paper trade — simulated orders on live data, no real capital. <b>Box Theory · owned + accum</b> = the owned signal that scales into winners (Bollinger-gated adds at +1R…+5R, stop tightened to a 10-day low once ≥2 units) — the strongest configuration in testing. <b>Box Theory · owned signal</b> = the same engine driven entirely by our own volume rule (a close up or down on volume ≥ 1.8× its 20-day average), run on the current S&P-100 by market cap — no third-party arrow. <b>Box Theory · hybrid</b> = US equities on the volume-price arrows (via TradingView); crypto, Hong Kong, Japan and Taiwan on the volume-surge signal, kept for owned-vs-real comparison. <b>Candlestick · Type B</b> = HZG/inside + VRR, trailing-pivot exit. Fixed-fractional ${money(d.equity0)} / ${(d.risk_pct*100).toFixed(2)}%. New trades appear here as fresh signals fire going forward.`;
     buildTabs();
     render();
   }catch(e){
