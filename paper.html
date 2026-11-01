@@ -154,7 +154,7 @@ function sigLabel(strat, m){
   if(strat==="box_theory_hybrid") return m==="US" ? "volume-price arrow" : "volume-surge";
   if(strat==="box_theory_owned") return "owned volume signal";
   if(strat==="box_theory_owned_accum") return "owned signal + accumulation";
-  if(strat==="box_theory_midcap") return (m==="UK" ? "owned signal (k=2.6) · mid-cap band" : "owned signal · mid-cap band");
+  if(strat==="box_theory_midcap") return (m==="crypto" ? "owned signal · cap top-50" : m==="UK" ? "owned signal (k=2.6) · mid-cap band" : "owned signal · mid-cap band");
   return "candlestick";
 }
 function byMarketTable(bm, strat){
@@ -175,8 +175,8 @@ function byMarketTable(bm, strat){
 const META = {
   box_theory_midcap: {
     title: "Box Theory — mid-cap rulebook",
-    desc: "Owned signal + accumulation on the locked mid-cap universe · 8 equity markets · point-in-time dollar-volume-rank band · 2011–2026 · $100k @ 0.50% risk/trade",
-    note: "The locked universe rule. Each quarter, rank every liquid name by trailing dollar volume and trade the mid-cap band — ranks 101–250, or 31–250 in the deep US & Japan markets — dropping the mega-caps (which mean-revert) and the illiquid tail (a fill trap). The breakout edge turns out to be a mid-cap phenomenon that holds across all eight markets (US, Japan, Hong Kong, Taiwan, UK, Canada, Australia, Europe) — the strongest evidence it isn't a survivorship artefact. UK uses a stricter volume threshold (k=2.6) to tame drawdown; the rest use k=1.8. Selection is point-in-time and survivorship-aware; a ~20-position cap is the live-sizing guideline (the track shown is uncapped, like the other streams).",
+    desc: "Owned signal + accumulation on the locked universe · 8 equity markets + crypto · point-in-time rank band · 2011–2026 · $100k @ 0.50% risk/trade",
+    note: "The locked universe rule. Each quarter, rank every liquid name by trailing dollar volume and trade the mid-cap band — ranks 101–250, or 31–250 in the deep US & Japan markets — dropping the mega-caps (which mean-revert) and the illiquid tail (a fill trap). The breakout edge turns out to be a mid-cap phenomenon that holds across all eight equity markets (US, Japan, Hong Kong, Taiwan, UK, Canada, Australia, Europe) — the strongest evidence it isn't a survivorship artefact. UK uses a stricter volume threshold (k=2.6) to tame drawdown; the rest use k=1.8. Crypto follows its own locked rule — the top 50 by market cap, rebalanced monthly — on a survivorship-free coin history. Selection is point-in-time; a ~20-position cap is the live-sizing guideline (the track shown is uncapped, like the other streams). Crypto's daily data is bridged forward from a monthly source, so its latest few weeks can lag.",
   },
   box_theory_owned_accum: {
     title: "Box Theory — owned + accumulation",
