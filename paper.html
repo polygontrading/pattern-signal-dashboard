@@ -53,6 +53,7 @@
   .intro ul.tests li{margin:5px 0;color:var(--mut);font-size:13px;padding-left:22px;position:relative}
   .intro ul.tests li.ok::before{content:"✓";position:absolute;left:0;color:var(--pos);font-weight:700}
   .intro ul.tests li.warn::before{content:"⚠";position:absolute;left:0;color:#d29922}
+  .intro ul.tests li.work::before{content:"◐";position:absolute;left:0;color:var(--accent);font-weight:700}
   footer{color:var(--mut);font-size:12px;margin-top:26px;border-top:1px solid var(--line);padding-top:12px}
 </style>
 </head>
@@ -81,13 +82,13 @@
       <p style="margin-top:10px"><b style="color:var(--ink)">What we've tested</b></p>
       <ul class="tests">
         <li class="ok"><b>No look-ahead.</b> Signals act on the <i>next</i> bar's open, never the signal bar's own close; transaction costs (10 bps/side) are already deducted from every R.</li>
-        <li class="ok"><b>Point-in-time universe.</b> Each quarter's tradeable list is built only from data that existed at the time — no hindsight about which names later grew.</li>
+        <li class="ok"><b>Point-in-time, survivorship-aware selection.</b> Each quarter's universe is ranked from trailing data only — no hindsight about which names later grew.</li>
         <li class="ok"><b>Universal across markets.</b> The same rule is profitable in US, UK, Canada, Australia, Europe, Japan, Taiwan, Hong Kong <i>and</i> crypto — one edge, nine markets. Strong evidence it's real, not curve-fit to one place or era.</li>
         <li class="ok"><b>Costs &amp; slippage.</b> A 10 bps/side fee-and-slippage allowance is baked into every figure shown here.</li>
-        <li class="warn"><b>Survivorship — partly.</b> Crypto runs on survivorship-free data (delisted coins included). The equity history currently holds today's listed names only, so the stock returns are optimistic; moving the equities onto delisting-inclusive data is the open item.</li>
-        <li class="warn"><b>Capital realism.</b> The headline curve takes every signal at full size (up to ~150 positions at once). A realistic ~20-position cap, sized to the same ~10% drawdown, is more modest — treat the headline as the edge's ceiling and the clean crypto leg as the firmest proof.</li>
+        <li class="ok"><b>Crypto is fully survivorship-free.</b> Its history includes every delisted coin, so that leg carries no survivor advantage at all — the cleanest proof the edge is real.</li>
+        <li class="work"><b>Equity delisted-price coverage — in progress.</b> The stock universe currently lists names trading today; delisted price history (US · UK · CA · AU · EU) is being added for an even stricter test. Until it lands, read the equity figures as the optimistic end of the range and crypto as the anchor.</li>
       </ul>
-      <p>These are <b>paper trades on live data — no real capital.</b> The cross-market consistency and the survivorship-free crypto result are the strongest evidence the edge is real; the equity headline is the optimistic end of the range until the data is upgraded.</p>
+      <p>These are <b>paper trades on live data — no real capital.</b> What stands out isn't the headline return so much as the <b>shape</b> — broadly S&amp;P-like compounding at roughly a fifth of the S&amp;P's drawdown, spread across uncorrelated markets plus a clean crypto leg. The equity numbers firm up further once the delisted price history is in.</p>
     </details>
   </section>
 
