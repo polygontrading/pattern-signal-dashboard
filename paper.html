@@ -37,6 +37,22 @@
   .empty{color:var(--mut);padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
   .scroll{overflow-x:auto}
   .yes{color:var(--pos);font-weight:600}.no{color:var(--mut)}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:16px 0 4px}
+  .intro h3{margin:0 0 6px;font-size:16px;color:var(--ink)}
+  .intro p{margin:0 0 10px;color:var(--mut);font-size:13px;max-width:940px}
+  .intro p.lead{color:var(--ink)}
+  .intro b.credit{color:var(--ink)}
+  .intro details{margin-top:4px}
+  .intro summary{cursor:pointer;color:var(--accent);font-size:13px;font-weight:600;list-style:none}
+  .intro summary::-webkit-details-marker{display:none}
+  .intro summary::before{content:"▸ "}
+  .intro details[open] summary::before{content:"▾ "}
+  .intro ol{margin:8px 0;padding-left:20px;color:var(--mut);font-size:13px;max-width:940px}
+  .intro ol li{margin:3px 0}
+  .intro ul.tests{list-style:none;padding:0;margin:8px 0;max-width:940px}
+  .intro ul.tests li{margin:5px 0;color:var(--mut);font-size:13px;padding-left:22px;position:relative}
+  .intro ul.tests li.ok::before{content:"✓";position:absolute;left:0;color:var(--pos);font-weight:700}
+  .intro ul.tests li.warn::before{content:"⚠";position:absolute;left:0;color:#d29922}
   footer{color:var(--mut);font-size:12px;margin-top:26px;border-top:1px solid var(--line);padding-top:12px}
 </style>
 </head>
@@ -47,6 +63,33 @@
     <div class="sub" style="margin-bottom:3px">Forward studies on live data. <b>Flagship</b> = Box Theory's decorrelated core (6 markets) — the set to actually trade (~10% drawdown). <b>Box Theory · mid-cap</b> shows all markets, incl. the cross-market-proof set. <b>Candlestick Type B</b> is a separate, still-experimental system.</div>
     <div class="sub"><span class="dot" id="dot"></span><span id="status">Loading…</span></div>
   </header>
+
+  <section class="intro">
+    <h3>Box Theory — a momentum-breakout strategy built to beat the S&amp;P 500</h3>
+    <p class="lead">It buys stocks while they're still coiled in a quiet consolidation — a <b>box</b> — and rides the move the instant they break out of it, then scales into the position as the trend proves itself, to capture the whole advance rather than just the first leg.</p>
+    <p>The idea descends from <b class="credit">Nicolas Darvas's</b> 1950s <i>box theory</i> — price trades in stacked rectangles and you act when it jumps to a new one — modernised with <b class="credit">Kristjan Kullamägi's</b> (Qullamaggie) breakout-from-consolidation swing method. Darvas supplies the box; the accumulation and trailing-stop management keep you in the winner for the full run.</p>
+    <details>
+      <summary>How it works &amp; how it's been validated</summary>
+      <p style="margin-top:10px"><b style="color:var(--ink)">How it works</b></p>
+      <ol>
+        <li><b>Universe.</b> Each quarter, rank every liquid stock by dollar volume and trade the <b>mid-cap band</b> (ranks ≈101–250, or 31–250 in the deep US &amp; Japan markets). That's where the breakout edge lives — mega-caps mean-revert, the illiquid tail is a fill-trap.</li>
+        <li><b>Entry.</b> A bar that closes up on a <b>volume surge</b> (volume ≥ 1.8× its 20-day average) as the stock breaks out of its box. The order fills at the <b>next day's open</b>.</li>
+        <li><b>Accumulation.</b> As the trade works (+1R, +2R…) it adds units and tightens the stop to a 10-day low once it's ahead — pyramiding to capture the entire upward move.</li>
+        <li><b>Exit.</b> A trailing stop under each new pivot low, a volume red-signal, or a failed breakout back into the box.</li>
+        <li><b>Risk.</b> Fixed-fractional — a $100k book risking 0.50% per trade, with a 10 bps/side cost allowance deducted from every trade.</li>
+      </ol>
+      <p style="margin-top:10px"><b style="color:var(--ink)">What we've tested</b></p>
+      <ul class="tests">
+        <li class="ok"><b>No look-ahead.</b> Signals act on the <i>next</i> bar's open, never the signal bar's own close; transaction costs (10 bps/side) are already deducted from every R.</li>
+        <li class="ok"><b>Point-in-time universe.</b> Each quarter's tradeable list is built only from data that existed at the time — no hindsight about which names later grew.</li>
+        <li class="ok"><b>Universal across markets.</b> The same rule is profitable in US, UK, Canada, Australia, Europe, Japan, Taiwan, Hong Kong <i>and</i> crypto — one edge, nine markets. Strong evidence it's real, not curve-fit to one place or era.</li>
+        <li class="ok"><b>Costs &amp; slippage.</b> A 10 bps/side fee-and-slippage allowance is baked into every figure shown here.</li>
+        <li class="warn"><b>Survivorship — partly.</b> Crypto runs on survivorship-free data (delisted coins included). The equity history currently holds today's listed names only, so the stock returns are optimistic; moving the equities onto delisting-inclusive data is the open item.</li>
+        <li class="warn"><b>Capital realism.</b> The headline curve takes every signal at full size (up to ~150 positions at once). A realistic ~20-position cap, sized to the same ~10% drawdown, is more modest — treat the headline as the edge's ceiling and the clean crypto leg as the firmest proof.</li>
+      </ul>
+      <p>These are <b>paper trades on live data — no real capital.</b> The cross-market consistency and the survivorship-free crypto result are the strongest evidence the edge is real; the equity headline is the optimistic end of the range until the data is upgraded.</p>
+    </details>
+  </section>
 
   <div class="tabs" id="tabs"></div>
   <div class="tabs" id="subtabs" style="margin-top:-4px"></div>
@@ -97,11 +140,19 @@ const reason = t => { const r = t.exit_reason || t.reason || ""; return REASON_L
 const reasonTip = t => { const r = t.exit_reason || t.reason || ""; return REASON_TIPS[r] || ""; };
 const mtag = m => `<span class="tag ${m==='crypto'?'crypto':''}">${m}</span>`;
 
+function spanYears(){
+  try{ const a=new Date(S.data.trial_start), b=new Date(S.data.generated_at);
+    const y=(b-a)/(365.25*864e5); return y>0.5?y:15.8; }catch(e){ return 15.8; }
+}
 function cards(st){
   const ret = st.return_pct !== undefined ? st.return_pct : (st.pnl_usd / (S.data.equity0||100000) * 100);
+  const yrs = spanYears();
+  const eq0 = S.data.equity0||100000;
+  const cagr = st.equity ? (Math.pow(st.equity/eq0, 1/yrs)-1)*100 : 0;
   const c = [
     ["Equity", money(st.equity)],
     ["Return", `<span class="${sign(ret)}">${ret>=0?"+":""}${num(ret,1)}%</span>`],
+    ["Return / yr", `<span class="${sign(cagr)}" title="CAGR of the backtest equity curve over ${num(yrs,1)} yrs (additive 0.5%-risk sizing, uncapped concurrency)">${cagr>=0?"+":""}${num(cagr,1)}%</span>`],
     ["P&L", `<span class="${sign(st.pnl_usd)}">${money(st.pnl_usd)}</span>`],
     ["Win rate", st.trades ? num(st.win_pct,1)+"%" : "—"],
     ["Trades", st.trades],
