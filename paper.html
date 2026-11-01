@@ -68,7 +68,7 @@
 </div>
 
 <script>
-const S = {data:null, strat:"box_theory_owned_accum"};
+const S = {data:null, strat:"box_theory_midcap"};
 const $ = s => document.querySelector(s);
 const money = v => "$" + Number(v).toLocaleString(undefined,{maximumFractionDigits:0});
 const num = (v,d=2) => Number(v).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -147,12 +147,14 @@ function closedTable(rows){
     <th>R</th><th>P&amp;L</th><th>Reason</th></tr></thead><tbody>${body}</tbody></table>`;
 }
 
-const MKT_NAME = {US:"US equities", crypto:"Crypto", HK:"Hong Kong", JP:"Japan", TW:"Taiwan"};
-const MKT_ORDER = ["US","crypto","HK","JP","TW"];
+const MKT_NAME = {US:"US equities", crypto:"Crypto", HK:"Hong Kong", JP:"Japan", TW:"Taiwan",
+  UK:"United Kingdom", CA:"Canada", AU:"Australia", EU:"Europe"};
+const MKT_ORDER = ["US","JP","HK","TW","UK","CA","AU","EU","crypto"];
 function sigLabel(strat, m){
   if(strat==="box_theory_hybrid") return m==="US" ? "volume-price arrow" : "volume-surge";
   if(strat==="box_theory_owned") return "owned volume signal";
   if(strat==="box_theory_owned_accum") return "owned signal + accumulation";
+  if(strat==="box_theory_midcap") return (m==="UK" ? "owned signal (k=2.6) · mid-cap band" : "owned signal · mid-cap band");
   return "candlestick";
 }
 function byMarketTable(bm, strat){
@@ -171,6 +173,11 @@ function byMarketTable(bm, strat){
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 const META = {
+  box_theory_midcap: {
+    title: "Box Theory — mid-cap rulebook",
+    desc: "Owned signal + accumulation on the locked mid-cap universe · 8 equity markets · point-in-time dollar-volume-rank band · 2011–2026 · $100k @ 0.50% risk/trade",
+    note: "The locked universe rule. Each quarter, rank every liquid name by trailing dollar volume and trade the mid-cap band — ranks 101–250, or 31–250 in the deep US & Japan markets — dropping the mega-caps (which mean-revert) and the illiquid tail (a fill trap). The breakout edge turns out to be a mid-cap phenomenon that holds across all eight markets (US, Japan, Hong Kong, Taiwan, UK, Canada, Australia, Europe) — the strongest evidence it isn't a survivorship artefact. UK uses a stricter volume threshold (k=2.6) to tame drawdown; the rest use k=1.8. Selection is point-in-time and survivorship-aware; a ~20-position cap is the live-sizing guideline (the track shown is uncapped, like the other streams).",
+  },
   box_theory_owned_accum: {
     title: "Box Theory — owned + accumulation",
     desc: "Owned signal, scaling into winners · Bollinger-gated adds, Donchian-tightened exit · 5 markets · 2011–2026 · $100k @ 0.50% risk/trade",
@@ -206,7 +213,7 @@ function render(){
   closedTable(s.closed||[]);
 }
 
-const LABELS = {box_theory_owned_accum:"Box Theory · owned + accum", box_theory_owned:"Box Theory · owned signal", box_theory_hybrid:"Box Theory · hybrid", combined:"Candlestick · Type B"};
+const LABELS = {box_theory_midcap:"Box Theory · mid-cap rulebook", box_theory_owned_accum:"Box Theory · owned + accum", box_theory_owned:"Box Theory · owned signal", box_theory_hybrid:"Box Theory · hybrid", combined:"Candlestick · Type B"};
 function buildTabs(){
   const keys = Object.keys(S.data.strategies);
   if(!keys.includes(S.strat)) S.strat = keys[0];
