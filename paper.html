@@ -44,11 +44,12 @@
 <div class="wrap">
   <header>
     <h1>Strategy Paper Trade</h1>
-    <div class="sub" style="margin-bottom:3px">Forward studies on live data — <b>Box Theory</b> (our own signal, with and without accumulation, plus the hybrid arrow) and <b>Candlestick</b> (Type B). Pick a study below; each panel shows that study only.</div>
+    <div class="sub" style="margin-bottom:3px">Forward studies on live data. <b>Flagship</b> = the decorrelated core (6 markets) blended with <b>Candlestick Type B</b>, sized to a ~9% drawdown. <b>Box Theory · mid-cap</b> shows every market (core + cross-market proof); <b>Type B</b> is the standalone candlestick system.</div>
     <div class="sub"><span class="dot" id="dot"></span><span id="status">Loading…</span></div>
   </header>
 
   <div class="tabs" id="tabs"></div>
+  <div class="tabs" id="subtabs" style="margin-top:-4px"></div>
 
   <section>
     <h2 id="stratTitle" style="margin:16px 0 3px;color:var(--ink);font-size:16px;text-transform:none;letter-spacing:0"></h2>
@@ -68,7 +69,7 @@
 </div>
 
 <script>
-const S = {data:null, strat:"box_theory_midcap"};
+const S = {data:null, strat:"flagship", mkt:"All"};
 const $ = s => document.querySelector(s);
 const money = v => "$" + Number(v).toLocaleString(undefined,{maximumFractionDigits:0});
 const num = (v,d=2) => Number(v).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -148,12 +149,13 @@ function closedTable(rows){
 }
 
 const MKT_NAME = {US:"US equities", crypto:"Crypto", HK:"Hong Kong", JP:"Japan", TW:"Taiwan",
-  UK:"United Kingdom", CA:"Canada", AU:"Australia", EU:"Europe"};
-const MKT_ORDER = ["US","JP","HK","TW","UK","CA","AU","EU","crypto"];
+  UK:"United Kingdom", CA:"Canada", AU:"Australia", EU:"Europe", "Type B":"Candlestick Type B"};
+const MKT_ORDER = ["US","JP","HK","TW","UK","CA","AU","EU","crypto","Type B"];
+// mid-cap markets: the traded core first, then the cross-market-proof / standby set
+const CORE_MKTS = ["US","CA","EU","AU","UK","crypto"];
+const PROOF_MKTS = ["JP","TW","HK"];
 function sigLabel(strat, m){
-  if(strat==="box_theory_hybrid") return m==="US" ? "volume-price arrow" : "volume-surge";
-  if(strat==="box_theory_owned") return "owned volume signal";
-  if(strat==="box_theory_owned_accum") return "owned signal + accumulation";
+  if(strat==="flagship") return m==="Type B" ? "candlestick Type B" : (m==="crypto" ? "owned signal · cap top-50" : m==="UK" ? "owned signal (k=2.6)" : "owned signal");
   if(strat==="box_theory_midcap") return (m==="crypto" ? "owned signal · cap top-50" : m==="UK" ? "owned signal (k=2.6) · mid-cap band" : "owned signal · mid-cap band");
   return "candlestick";
 }
@@ -173,52 +175,73 @@ function byMarketTable(bm, strat){
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 const META = {
+  flagship: {
+    title: "Flagship — Core 6 + Candlestick Type B",
+    desc: "The decorrelated traded core (US · UK · CA · AU · EU · crypto) blended with Candlestick Type B, sized to a ~9% max drawdown · 2011–2026 · $100k base",
+    note: "This is the version to actually trade. Six Box-Theory markets that don't draw down together are blended with the Type B candlestick system (a different, decorrelated signal), then position-sized so the whole portfolio's worst drawdown is about 9%. Because the sleeves offset each other, the blend keeps almost all of the all-markets return at roughly a third of the drawdown of trading everything at once. Japan, Taiwan and Hong Kong are left out of the traded set — their drawdowns coincide with the core — but are shown under Box Theory · mid-cap as cross-market proof that the edge holds everywhere.",
+  },
   box_theory_midcap: {
     title: "Box Theory — mid-cap rulebook",
-    desc: "Owned signal + accumulation on the locked universe · 8 equity markets + crypto · point-in-time rank band · 2011–2026 · $100k @ 0.50% risk/trade",
-    note: "The locked universe rule. Each quarter, rank every liquid name by trailing dollar volume and trade the mid-cap band — ranks 101–250, or 31–250 in the deep US & Japan markets — dropping the mega-caps (which mean-revert) and the illiquid tail (a fill trap). The breakout edge turns out to be a mid-cap phenomenon that holds across all eight equity markets (US, Japan, Hong Kong, Taiwan, UK, Canada, Australia, Europe) — the strongest evidence it isn't a survivorship artefact. UK uses a stricter volume threshold (k=2.6) to tame drawdown; the rest use k=1.8. Crypto follows its own locked rule — the top 50 by market cap, rebalanced monthly — on a survivorship-free coin history. Selection is point-in-time; a ~20-position cap is the live-sizing guideline (the track shown is uncapped, like the other streams). Crypto's daily data is bridged forward from a monthly source, so its latest few weeks can lag.",
-  },
-  box_theory_owned_accum: {
-    title: "Box Theory — owned + accumulation",
-    desc: "Owned signal, scaling into winners · Bollinger-gated adds, Donchian-tightened exit · 5 markets · 2011–2026 · $100k @ 0.50% risk/trade",
-    note: "The owned signal, but now it scales into winners: it adds at +1R…+5R of favourable progress — only when the Bollinger band has opened up (volatility expanding = a real trend) — and tightens the shared stop to a 10-day low once it holds two or more units, banking the accumulated gains. Each row is one position (its R is the whole bundle, ×N units shown). Out-of-sample this is the strongest configuration found: better risk-adjusted return than the base owned signal at lower drawdown.",
-  },
-  box_theory_owned: {
-    title: "Box Theory — our own signal",
-    desc: "Our own volume signal (no third-party arrow) · 5 markets · US = current S&P-100 by market cap · 2011–2026 · $100k @ 0.50% risk/trade",
-    note: "Same Box Theory engine as the hybrid, but the green/red signal is computed entirely from our own rule — a close up or down on volume ≥ 1.8× its 20-day average — so the system no longer depends on anyone's proprietary indicator. US names are the current S&P 500 top-100 by market cap (quarterly rebalance); crypto, Hong Kong, Japan and Taiwan use the same large-cap pools as the hybrid. One signal, every market — the forward run that stands on its own.",
-  },
-  box_theory_hybrid: {
-    title: "Box Theory — hybrid",
-    desc: "5 markets, each on its strongest volume signal · 2011–2026 · $100k @ 0.50% risk/trade",
-    note: "Each market uses whichever volume signal is strongest there — the volume-price arrow on US equities, a volume-surge rule elsewhere. Net positive in every market over the full history. Kept alongside the owned signal so we can compare owned-vs-real as live trades fire.",
+    desc: "Owned signal + accumulation on the locked universe · all 8 equity markets + crypto · point-in-time rank band · 2011–2026 · $100k @ 0.50% risk/trade",
+    note: "The locked universe rule. Each quarter, rank every liquid name by trailing dollar volume and trade the mid-cap band — ranks 101–250, or 31–250 in the deep US & Japan markets — dropping the mega-caps (which mean-revert) and the illiquid tail. The breakout edge is a mid-cap phenomenon that holds across every market, which is the strongest evidence it isn't a survivorship artefact. The traded core (US · CA · EU · AU · UK · crypto) is shown first; Japan, Taiwan and Hong Kong follow as cross-market proof / standby — strong on their own, but left out of the live blend because their drawdowns coincide with the core. UK uses a stricter threshold (k=2.6); crypto uses cap-top-50 monthly. Pick a market to drill in.",
   },
   combined: {
     title: "Candlestick — Type B",
     desc: "Inside / HZG-inside breakout, strong volume-surge filter (VRR≥2.5), trailing-pivot-low exit · all markets · 2011–2026 · $100k @ 0.50% risk/trade",
-    note: "Refined to the high-quality set: raising the volume-surge filter to VRR≥2.5 (and dropping the loose HZG pattern) cut trades ~10× and max drawdown from ~17% to ~2.5% while lifting per-trade quality. Sizing is still fixed-fractional; the low drawdown leaves plenty of room to size up.",
+    note: "A separate strategy from Box Theory — a candlestick breakout system. Refined to the high-quality set: raising the volume-surge filter to VRR≥2.5 cut trades ~10× and drawdown to ~2.5% while lifting per-trade quality. Because its signal is uncorrelated with Box Theory, blending it into the flagship nearly doubles the risk-adjusted return.",
   },
 };
+const LABELS = {flagship:"★ Flagship (Core 6 + Type B)", box_theory_midcap:"Box Theory · mid-cap", combined:"Candlestick · Type B"};
+const SHOW = ["flagship","box_theory_midcap","combined"];
+
+function subTabs(){
+  if(S.strat!=="box_theory_midcap"){ $("#subtabs").innerHTML=""; return; }
+  const bm = (S.data.strategies.box_theory_midcap||{}).by_market||{};
+  const chip = (m,lab,extra="")=>`<button class="tab ${S.mkt===m?'active':''}" data-mkt="${m}" style="${extra}">${lab}</button>`;
+  let html = chip("All","All markets");
+  html += CORE_MKTS.filter(m=>bm[m]).map(m=>chip(m,MKT_NAME[m]||m)).join("");
+  const proof = PROOF_MKTS.filter(m=>bm[m]);
+  if(proof.length){
+    html += `<span style="align-self:center;color:var(--mut);font-size:11px;margin:0 4px">proof →</span>`;
+    html += proof.map(m=>chip(m,MKT_NAME[m]||m,"opacity:.7")).join("");
+  }
+  $("#subtabs").innerHTML = html;
+  document.querySelectorAll("#subtabs .tab").forEach(b=>b.addEventListener("click",()=>{S.mkt=b.dataset.mkt; render();}));
+}
+
 function render(){
   if(!S.data) return;
   const s = S.data.strategies[S.strat];
-  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active", b.dataset.strat===S.strat));
+  document.querySelectorAll("#tabs .tab").forEach(b=>b.classList.toggle("active", b.dataset.strat===S.strat));
   const m = META[S.strat] || {title:(LABELS[S.strat]||S.strat), desc:"", note:""};
   $("#stratTitle").textContent = m.title;
   $("#stratDesc").textContent = m.desc;
-  $("#stratNote").textContent = m.note;
+  let note = m.note;
+  if(S.strat==="flagship" && s && s.stats && s.stats.risk_pct!==undefined)
+    note += ` (sized to ≈${num(s.stats.risk_pct*100,2)}% risk per trade for the ~9% drawdown).`;
+  $("#stratNote").textContent = note;
+  subTabs();
+  if(S.strat==="box_theory_midcap" && S.mkt!=="All"){
+    const mk = S.mkt, bm = (s.by_market||{})[mk] || {};
+    $("#stratTitle").textContent = `Box Theory — ${MKT_NAME[mk]||mk}` + (PROOF_MKTS.includes(mk) ? " · cross-market proof" : "");
+    cards(bm);
+    $("#byMarket").innerHTML = "";
+    openTable((s.open||[]).filter(p=>p.market===mk));
+    closedTable((s.closed||[]).filter(t=>t.market===mk));
+    return;
+  }
   cards(s.stats);
   byMarketTable(s.by_market||{}, S.strat);
   openTable(s.open||[]);
   closedTable(s.closed||[]);
 }
 
-const LABELS = {box_theory_midcap:"Box Theory · mid-cap rulebook", box_theory_owned_accum:"Box Theory · owned + accum", box_theory_owned:"Box Theory · owned signal", box_theory_hybrid:"Box Theory · hybrid", combined:"Candlestick · Type B"};
 function buildTabs(){
-  const keys = Object.keys(S.data.strategies);
+  const present = SHOW.filter(k=>S.data.strategies[k]);
+  const keys = present.length ? present : Object.keys(S.data.strategies);
   if(!keys.includes(S.strat)) S.strat = keys[0];
   $("#tabs").innerHTML = keys.map(k=>`<button class="tab" data-strat="${k}">${LABELS[k]||k}</button>`).join("");
-  document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{S.strat=b.dataset.strat; render();}));
+  document.querySelectorAll("#tabs .tab").forEach(b=>b.addEventListener("click",()=>{S.strat=b.dataset.strat; S.mkt="All"; render();}));
 }
 
 async function load(){
