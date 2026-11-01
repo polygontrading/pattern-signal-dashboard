@@ -44,7 +44,7 @@
 <div class="wrap">
   <header>
     <h1>Strategy Paper Trade</h1>
-    <div class="sub" style="margin-bottom:3px">Forward studies on live data. <b>Flagship</b> = the decorrelated core (6 markets) blended with <b>Candlestick Type B</b>, sized to a ~9% drawdown. <b>Box Theory · mid-cap</b> shows every market (core + cross-market proof); <b>Type B</b> is the standalone candlestick system.</div>
+    <div class="sub" style="margin-bottom:3px">Forward studies on live data. <b>Flagship</b> = Box Theory's decorrelated core (6 markets) — the set to actually trade (~10% drawdown). <b>Box Theory · mid-cap</b> shows all markets, incl. the cross-market-proof set. <b>Candlestick Type B</b> is a separate, still-experimental system.</div>
     <div class="sub"><span class="dot" id="dot"></span><span id="status">Loading…</span></div>
   </header>
 
@@ -155,7 +155,7 @@ const MKT_ORDER = ["US","JP","HK","TW","UK","CA","AU","EU","crypto","Type B"];
 const CORE_MKTS = ["US","CA","EU","AU","UK","crypto"];
 const PROOF_MKTS = ["JP","TW","HK"];
 function sigLabel(strat, m){
-  if(strat==="flagship") return m==="Type B" ? "candlestick Type B" : (m==="crypto" ? "owned signal · cap top-50" : m==="UK" ? "owned signal (k=2.6)" : "owned signal");
+  if(strat==="flagship") return (m==="crypto" ? "owned signal · cap top-50" : m==="UK" ? "owned signal (k=2.6)" : "owned signal");
   if(strat==="box_theory_midcap") return (m==="crypto" ? "owned signal · cap top-50" : m==="UK" ? "owned signal (k=2.6) · mid-cap band" : "owned signal · mid-cap band");
   return "candlestick";
 }
@@ -176,9 +176,9 @@ function byMarketTable(bm, strat){
 }
 const META = {
   flagship: {
-    title: "Flagship — Core 6 + Candlestick Type B",
-    desc: "The decorrelated traded core (US · UK · CA · AU · EU · crypto) blended with Candlestick Type B, sized to a ~9% max drawdown · 2011–2026 · $100k base",
-    note: "This is the version to actually trade. Six Box-Theory markets that don't draw down together are blended with the Type B candlestick system (a different, decorrelated signal), then position-sized so the whole portfolio's worst drawdown is about 9%. Because the sleeves offset each other, the blend keeps almost all of the all-markets return at roughly a third of the drawdown of trading everything at once. Japan, Taiwan and Hong Kong are left out of the traded set — their drawdowns coincide with the core — but are shown under Box Theory · mid-cap as cross-market proof that the edge holds everywhere.",
+    title: "Box Theory — Core 6 (the traded set)",
+    desc: "The six decorrelated markets to actually trade — US · UK · CA · AU · EU · crypto · owned signal + accumulation · 2011–2026 · $100k @ 0.50% risk/trade",
+    note: "This is the version to trade. Of the nine markets the rulebook covers, these six don't draw down together, so traded as one portfolio their worst drawdown is about 10% — versus 31% if you traded all nine at once. Japan, Taiwan and Hong Kong are left out (their drawdowns coincide with the core) but are kept under Box Theory · mid-cap as cross-market proof the edge holds everywhere. Every market uses the owned volume signal with accumulation; UK uses a stricter threshold (k=2.6); crypto is cap-top-50 monthly. Drop risk to ~0.45%/trade for a strict sub-9% drawdown. (Candlestick Type B is kept separate and is not blended in — it hasn't been validated yet.)",
   },
   box_theory_midcap: {
     title: "Box Theory — mid-cap rulebook",
@@ -186,12 +186,12 @@ const META = {
     note: "The locked universe rule. Each quarter, rank every liquid name by trailing dollar volume and trade the mid-cap band — ranks 101–250, or 31–250 in the deep US & Japan markets — dropping the mega-caps (which mean-revert) and the illiquid tail. The breakout edge is a mid-cap phenomenon that holds across every market, which is the strongest evidence it isn't a survivorship artefact. The traded core (US · CA · EU · AU · UK · crypto) is shown first; Japan, Taiwan and Hong Kong follow as cross-market proof / standby — strong on their own, but left out of the live blend because their drawdowns coincide with the core. UK uses a stricter threshold (k=2.6); crypto uses cap-top-50 monthly. Pick a market to drill in.",
   },
   combined: {
-    title: "Candlestick — Type B",
+    title: "Candlestick — Type B  (experimental)",
     desc: "Inside / HZG-inside breakout, strong volume-surge filter (VRR≥2.5), trailing-pivot-low exit · all markets · 2011–2026 · $100k @ 0.50% risk/trade",
-    note: "A separate strategy from Box Theory — a candlestick breakout system. Refined to the high-quality set: raising the volume-surge filter to VRR≥2.5 cut trades ~10× and drawdown to ~2.5% while lifting per-trade quality. Because its signal is uncorrelated with Box Theory, blending it into the flagship nearly doubles the risk-adjusted return.",
+    note: "⚠ Experimental — a separate candlestick breakout system that has NOT been through the survivorship / mid-cap / out-of-sample validation Box Theory has. Shown for development only, not for trading yet. Refined to the high-quality set (VRR≥2.5 cut trades ~10× and drawdown to ~2.5%). Its Inside / HZG patterns are also being tested as an entry filter for Box Theory. To be properly validated after Box Theory is finished.",
   },
 };
-const LABELS = {flagship:"★ Flagship (Core 6 + Type B)", box_theory_midcap:"Box Theory · mid-cap", combined:"Candlestick · Type B"};
+const LABELS = {flagship:"★ Box Theory · Core 6", box_theory_midcap:"Box Theory · mid-cap", combined:"Candlestick · Type B (experimental)"};
 const SHOW = ["flagship","box_theory_midcap","combined"];
 
 function subTabs(){
