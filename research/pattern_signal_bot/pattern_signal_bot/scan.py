@@ -6,28 +6,26 @@ import logging
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-from .engine import Variant, backtest, performance, _body_inside, _green, _long_body, _range_inside
+from .engine import Variant, backtest, performance, _setup
 from .coinbase_feed import fetch_daily as fetch_coinbase_daily, weekly_from_daily, monthly_from_daily
 from .futu_feed import fetch
 from .store import connect, load_candles, record_scan, upsert_candles
 
-
 ROOT = Path(__file__).resolve().parents[1]
 LOG = logging.getLogger(__name__)
 
-
 def latest_setup(bars, variant):
-    if variant.pattern == "inside":
-        if len(bars) < 23: return None
-        a, b, d = bars[-3:]
-        return (d, b.high, b.low) if _green(b) and _range_inside(a, b) and d.high > b.high else None
-    if len(bars) < 24: return None
-    a, b, c, d = bars[-4:]
-    valid = _long_body(a) and _body_inside(a, b) and _body_inside(a, c)
-    if variant.pattern == "hzg_inside":
-        valid = valid and _green(b) and _green(c) and _range_inside(a, b) and _range_inside(a, c)
-    return (d, c.high, a.low) if valid and d.high > c.high else None
-
+    """The most recent completed bar that forms this variant's setup, including the
+    optional volume confirmation. Delegates to the engine so the live screen and the
+    backtest apply byte-identical rules."""
+    need = 3 if variant.pattern == "inside" else 4
+    if len(bars) < 20 + need:
+        return None
+    setup = _setup(bars, len(bars) - need, variant)
+    if setup is None:
+        return None
+    entry_i, level, stop = setup
+    return (bars[entry_i], level, stop)
 
 def qualifies(metrics: dict, minimum: int) -> bool:
     """Require a meaningful long sample, a positive five-year check, and no
@@ -38,7 +36,6 @@ def qualifies(metrics: dict, minimum: int) -> bool:
     if medium["trades"] < max(5, minimum // 2) or medium["mean_return_pct"] is None or medium["mean_return_pct"] <= 0:
         return False
     return short["trades"] == 0 or (short["mean_return_pct"] is not None and short["mean_return_pct"] >= 0)
-
 
 def run(bootstrap: bool, only_symbols: set[str] | None = None) -> list[dict]:
     config = json.loads((ROOT / "config.json").read_text())
@@ -100,7 +97,6 @@ def run(bootstrap: bool, only_symbols: set[str] | None = None) -> list[dict]:
         except Exception as error:
             LOG.exception("Skipping %s after a provider error: %s", symbol, error)
     return results
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
