@@ -1,5 +1,31 @@
 [
   {
+    "entry": 26.96,
+    "id": 20,
+    "initial_stop": 26.96,
+    "metrics": {},
+    "provider": "tradingview",
+    "qualified": 1,
+    "scanned_at": "2026-11-19T21:01:19.886496+00:00",
+    "setup_date": "2026-11-19",
+    "symbol": "US.GME",
+    "timeframe": "day",
+    "variant_id": "box_theory_arrow"
+  },
+  {
+    "entry": 361.62,
+    "id": 19,
+    "initial_stop": 361.62,
+    "metrics": {},
+    "provider": "tradingview",
+    "qualified": 1,
+    "scanned_at": "2026-11-19T21:01:01.634680+00:00",
+    "setup_date": "2026-11-19",
+    "symbol": "US.PANW",
+    "timeframe": "day",
+    "variant_id": "box_theory_arrow"
+  },
+  {
     "entry": 14.94,
     "id": 18,
     "initial_stop": 14.94,
