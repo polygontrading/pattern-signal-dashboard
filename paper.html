@@ -291,6 +291,7 @@ function render(){
 function buildTabs(){
   const present = SHOW.filter(k=>S.data.strategies[k]);
   const keys = present.length ? present : Object.keys(S.data.strategies);
+  { const _h = location.hash.replace(/^#/,''); if(keys.includes(_h)) S.strat = _h; }
   if(!keys.includes(S.strat)) S.strat = keys[0];
   $("#tabs").innerHTML = keys.map(k=>`<button class="tab" data-strat="${k}">${LABELS[k]||k}</button>`).join("");
   document.querySelectorAll("#tabs .tab").forEach(b=>b.addEventListener("click",()=>{S.strat=b.dataset.strat; S.mkt="All"; render();}));
