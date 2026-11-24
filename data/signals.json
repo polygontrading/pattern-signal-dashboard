@@ -1,5 +1,18 @@
 [
   {
+    "entry": 18.51,
+    "id": 21,
+    "initial_stop": 18.51,
+    "metrics": {},
+    "provider": "tradingview",
+    "qualified": 1,
+    "scanned_at": "2026-11-24T21:01:17.355742+00:00",
+    "setup_date": "2026-11-24",
+    "symbol": "US.PINS",
+    "timeframe": "day",
+    "variant_id": "box_theory_arrow"
+  },
+  {
     "entry": 26.96,
     "id": 20,
     "initial_stop": 26.96,
